@@ -41,3 +41,7 @@ export class Restaurant {
     events_url: string;
     establishment_types: any[];
 }
+
+export class Restaurants {
+  restaurants: Restaurant[];
+}

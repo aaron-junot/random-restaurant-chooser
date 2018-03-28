@@ -5,6 +5,7 @@ import { ZomatoService } from '../zomato.service';
 import { LocationData } from '../locationdata';
 import { RestaurantComponent } from '../restaurant/restaurant.component';
 import { environment } from '../../environments/environment.prod';
+import { Restaurants } from '../restaurant';
 declare var System: any;
 
 @Component({
@@ -41,21 +42,23 @@ export class SubmitComponent implements OnInit {
     const zKey = environment.zomatoKey;
     const gKey = environment.googleKey;
 
-    console.log(zKey)
-    console.log(gKey)
+    this.locationService.getLocationData(gKey, zip)
+    .subscribe((data: LocationData) => {
+      const results = data.results;
+      const topResult = results[0];
+      const geometry = topResult.geometry;
+      const location = geometry.location;
+      const lat = location.lat;
+      const lng = location.lng;
+      const radius = distance*1609.344; // convert miles to meters
 
-    // this.locationService.getLocationData(gKey, zip)
-    // .subscribe((data: LocationData) => {
-    //   const lat = data.results[0].geometry.location.lat;
-    //   const lng = data.results[0].geometry.location.lng;
-    //   const radius = distance*1609.344; // convert miles to meters
-    //
-    //   this.zomatoService.getRestaurantData(zKey, lat, lng, radius)
-    //   .subscribe(data => {
-    //     const restaurant = data.restaurants[Math.floor(Math.random()*data.restaurants.length)];
-    //     this.restaurant.setChoice(restaurant);
-    //   })
-    // })
+      this.zomatoService.getRestaurantData(zKey, lat, lng, radius)
+      .subscribe((data: Restaurants) => {
+        const restaurants = data.restaurants;
+        const restaurant = restaurants[Math.floor(Math.random()*data.restaurants.length)];
+        this.restaurant.setChoice(restaurant);
+      })
+    })
   }
 
 }
