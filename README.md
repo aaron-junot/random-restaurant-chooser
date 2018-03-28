@@ -1,5 +1,9 @@
 # RandomRestaurantChooser
 
+Choose a random restaurant near you! Simply enter your zip code and the radius in miles, and a random restaurant will be displayed!
+
+Check it out at https://restaurant-chooser.herokuapp.com/
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
 
 ## Development server
