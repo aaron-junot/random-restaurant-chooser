@@ -1,0 +1,10 @@
+<div id="restaurant">
+  <div class="container" *ngIf="chosenRestaurant">
+    <h2>{{ chosenRestaurant.name }}</h2>
+    <div>Cost: {{ chosenRestaurant.currency.repeat(chosenRestaurant.price_range) }}</div>
+    <div>Address: {{ chosenRestaurant.location.address }}</div>
+    <div>Rating: {{ chosenRestaurant.user_rating.aggregate_rating }}</div>
+    <div>Reviews: {{ chosenRestaurant.user_rating.votes }}</div>
+    <a href="{{ chosenRestaurant.url }}" target="_blank" rel="noopener noreferrer">{{ chosenRestaurant.url }}</a>
+  </div>
+</div>

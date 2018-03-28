@@ -1,14 +1,19 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div class="app-container">
   <h1>
-    Welcome to {{ title }}!
+    {{ title }}
   </h1>
-  <p>
-    Type in your Zip Code to see a restaurant near your location!
-  </p>
-  <app-search></app-search>
-  <app-dropdown></app-dropdown>
-  <app-submit></app-submit>
-
-
+  <div class="background-image">
+    <div class="overlay">
+      <p>
+        Enter your zip code to see a restaurant near your location!
+      </p>
+      <div class="search-bar">
+        <app-search></app-search>
+        <app-dropdown></app-dropdown>
+        <app-submit [restaurant]="restaurant"></app-submit>
+      </div>
+    </div>
+  </div>
+  <app-restaurant #restaurant></app-restaurant>
 </div>

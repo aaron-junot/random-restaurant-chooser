@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LocationService } from '../location.service';
 import { ZomatoService } from '../zomato.service';
+import { LocationData } from '../locationdata';
+import { RestaurantComponent } from '../restaurant/restaurant.component';
 declare var System: any;
 
 @Component({
@@ -11,6 +13,10 @@ declare var System: any;
 })
 export class SubmitComponent implements OnInit {
 
+  @Input() restaurant: RestaurantComponent;
+
+  numClicks = 0;
+
   constructor(
     private locationService: LocationService,
     private zomatoService: ZomatoService) {}
@@ -19,18 +25,25 @@ export class SubmitComponent implements OnInit {
   }
 
   onSubmit() {
+    this.numClicks++;
+    if (this.numClicks > 6)
+    {
+      alert("You can only view up to 6 random restaurants");
+      return;
+    }
+
     let zKey;
     let gKey;
 
     const zip = (<HTMLInputElement>document.getElementById("zipcode")).value;
-    const distance = (<HTMLInputElement>document.getElementById("distance")).value;
+    const distance = <Number>(<HTMLInputElement>document.getElementById("distance")).value;
 
-    System.import('../../assets/apikeys.json').then((file)=> {
+    import('../../assets/apikeys.json').then((file)=> {
       zKey = file['zomato-key'];
       gKey = file['google-key'];
 
       this.locationService.getLocationData(gKey, zip)
-      .subscribe(data => {
+      .subscribe((data: LocationData) => {
         const lat = data.results[0].geometry.location.lat;
         const lng = data.results[0].geometry.location.lng;
         const radius = distance*1609.344; // convert miles to meters
@@ -38,7 +51,7 @@ export class SubmitComponent implements OnInit {
         this.zomatoService.getRestaurantData(zKey, lat, lng, radius)
         .subscribe(data => {
           const restaurant = data.restaurants[Math.floor(Math.random()*data.restaurants.length)];
-          console.log(restaurant)
+          this.restaurant.setChoice(restaurant);
         })
       })
     })
