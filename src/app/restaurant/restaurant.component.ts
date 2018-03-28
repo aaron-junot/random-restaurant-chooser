@@ -21,7 +21,7 @@ export class RestaurantComponent implements OnInit {
 
   setURL() {
     const aTag = (<HTMLInputElement>document.getElementById("url"));
-    aTag.setAttribute("href", choice.restaurant.url);
+    aTag.setAttribute("href", this.chosenRestaurant.url);
   }
 
 }
