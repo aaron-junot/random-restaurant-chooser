@@ -4,6 +4,10 @@ Choose a random restaurant near you! Simply enter your zip code and the radius i
 
 Check it out at https://restaurant-chooser.herokuapp.com/
 
+Check out a video demo at https://youtu.be/GL0dOcTrS3o
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GL0dOcTrS3o?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
 
 ## Development server
